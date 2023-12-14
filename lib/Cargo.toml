@@ -1,0 +1,11 @@
+[package]
+name = "dori-lib"
+description = "Dori host and client library."
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+magic-crypt = "3.1.12"
+tora = "0.1.5"

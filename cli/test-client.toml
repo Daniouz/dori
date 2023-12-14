@@ -1,0 +1,4 @@
+bind_address = "127.0.0.1:12700"
+client_name = "test-client"
+
+key = "testpass"

@@ -1,0 +1,9 @@
+client_name = "test-client"
+program_name = "DoriTestClient"
+
+# Whether Clint should install the Dori client for all users.
+# Set to false for current user installation.
+all_users = false
+
+host_address = "127.0.0.1:12700"
+key = "testpass"

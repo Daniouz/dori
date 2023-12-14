@@ -1,0 +1,16 @@
+[package]
+name = "dori-cli"
+description = "Dori host and command-line interface."
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.71"
+clap = { version = "4.3.10", features = ["derive"] }
+dori-lib = { path = "../lib" }
+serde = { version = "1.0.193", features = ["derive"] }
+toml = "0.8.8"
+tora = "0.1.5"
+rand = "0.8.5"

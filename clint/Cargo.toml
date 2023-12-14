@@ -1,0 +1,15 @@
+[package]
+name = "dori-clint"
+description = "Configurable Dori client installer."
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+auto-launch = "0.5.0"
+dori-client = { path = "../client" }
+homedir = "0.2.1"
+serde = { version = "1.0.193", features = ["derive"] }
+toml = "0.8.8"
