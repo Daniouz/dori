@@ -47,7 +47,7 @@ pub fn create_config(name: &str) -> Result<()> {
     let content = toml::to_string_pretty(&config)
         .with_context(|| "Failed to serialize default configuration")?;
 
-    fs::write(format!("config\\{name}.toml"), content)
+    fs::write(format!("config/{name}.toml"), content)
         .with_context(|| "Failed to write to configuration file")
 }
 
@@ -55,7 +55,7 @@ pub fn create_config(name: &str) -> Result<()> {
 ///
 /// Looks for the file in `config/<NAME>.toml`
 pub fn delete_config(name: &str) -> Result<()> {
-    fs::remove_file(format!("config\\{name}.toml"))
+    fs::remove_file(format!("config/{name}.toml"))
         .with_context(|| "Failed to delete configuration file")
 }
 
@@ -69,7 +69,7 @@ pub fn load_config(name: &str) -> Result<HostConfig> {
             .with_context(|| "Failed to get parent directory of dori-cli executable")?,
     );
 
-    path.push(format!("config\\{name}.toml"));
+    path.push(format!("config/{name}.toml"));
 
     let txt = fs::read_to_string(&path)
         .with_context(|| format!("Failed to read from {}", path.display()))?;
