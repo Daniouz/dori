@@ -38,7 +38,7 @@ impl ClientListener {
     /// Listens for incoming connections and attempts to establish a secure connection.
     ///
     /// Only accepts clients with the given name.
-    pub fn accept_from(&self, client_name: String, key: String) -> io::Result<ClientConnection> {
+    pub fn accept_from(&self, client_name: &str, key: &str) -> io::Result<ClientConnection> {
         let stream = loop {
             let (conn, end_addr) = self.inner.accept()?;
             let timeout = Duration::from_secs(30);
@@ -48,7 +48,7 @@ impl ClientListener {
 
             println!("Initiating handshake with {end_addr}..");
 
-            let handshake = Handshake::new(client_name.clone(), key.clone());
+            let handshake = Handshake::new(client_name.to_string(), key.to_string());
 
             match handshake::perform_host_handshake(conn, handshake)? {
                 Ok(stream) => break stream,

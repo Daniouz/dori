@@ -7,9 +7,26 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize)]
 pub struct HostConfig {
-    pub bind_address: SocketAddr,
-    pub client_name: String,
-    pub key: String,
+    bind_address: SocketAddr,
+    client_name: String,
+    key: String,
+}
+
+impl HostConfig {
+    /// Returns the address the host will bind to.
+    pub fn bind_address(&self) -> SocketAddr {
+        self.bind_address
+    }
+
+    /// Returns the client's name.
+    pub fn client_name(&self) -> &str {
+        &self.client_name
+    }
+
+    /// Returns the cipher key used for secure streams.
+    pub fn key(&self) -> &str {
+        &self.key
+    }
 }
 
 impl Default for HostConfig {

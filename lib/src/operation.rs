@@ -1,19 +1,7 @@
 use tora::{ReadEnum, ReadStruct, WriteEnum, WriteStruct};
 
-/// An error returned when a packet could not be read.
-///
-/// # Variants
-///
-/// - BadPacket: the packet was written or received incorrectly
-/// - UnknownOperation: the operation is not recognized by this version of dori
-#[derive(Debug, ReadEnum, WriteEnum)]
-pub enum ReadError {
-    /// The packet was written or received incorrectly.
-    BadPacket,
-
-    /// The operation is not recognized by this version of dori.
-    UnknownOperation,
-}
+/// A result returned by the client.
+pub type ClientResult<T> = Result<T, String>;
 
 /// An operation that is sent by the host and executed on the client.
 ///
@@ -33,7 +21,7 @@ pub enum Operation {
     Download(FileTransferOperation),
 
     /// Executes a shell command and awaits the completion and output as a response.
-    Command(Vec<String>),
+    Command(String, Vec<String>),
 
     /// Spawns a thread and executes the [Command](Self::Command) operation.
     ThreadedCommand(Vec<String>),
@@ -46,31 +34,13 @@ pub enum Operation {
 #[derive(ReadEnum, WriteEnum)]
 pub enum Response {
     /// The response to the upload operation.
-    Upload(Result<(), ClientError>),
+    Upload(ClientResult<()>),
 
     /// The response to the download operation.
-    Download(Result<(), ClientError>),
+    Download(ClientResult<()>),
 
     /// The response to the ping operation.
     Pong,
-}
-
-#[derive(ReadStruct, WriteStruct)]
-pub struct ClientError {
-    status: i32,
-    message: Option<String>,
-}
-
-impl ClientError {
-    /// Returns the status of the error.
-    pub fn status(&self) -> i32 {
-        self.status
-    }
-
-    /// Returns the error message, if present.
-    pub fn message(&self) -> Option<&str> {
-        self.message.as_deref()
-    }
 }
 
 /// Operation in which a file is transferred to or from the client.
